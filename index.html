@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Canvas paint</title>
+	</head>
+	<body>
+		<canvas id="canvas" height="800"></canvas>
+
+		<div class="panel d-flex align-items-center">
+			<button type="button" class="btn btn-primary  round-btn btn-blue"></button>
+			<button type="button" class="btn btn-success  round-btn btn-green"></button>
+			<button type="button" class="btn btn-danger  round-btn btn-red"></button>
+			<input type="color" class="color-input" />
+			<input
+				type="range"
+				name=""
+				class="input-range"
+				max="20"
+				min="1"
+				value="1"
+				id=""
+			/>
+		</div>
+
+		<script type="module" src="/src/main.ts"></script>
+	</body>
+</html>
