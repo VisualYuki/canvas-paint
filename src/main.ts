@@ -6,7 +6,7 @@ import { View } from "./mvc/view";
 
 let view: View = new View();
 let model: Model = new Model(view);
-let controller: Controller = new Controller(model, view);
+new Controller(model, view);
 
 //ctx.fillStyle = "black";
 //ctx.lineWidth = 1;

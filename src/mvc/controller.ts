@@ -30,7 +30,7 @@ export class Controller {
 		document
 			.querySelectorAll(".top-panel  .tools img")
 			.forEach((el: HTMLElement) => {
-				el.addEventListener("click", (e: MouseEvent) => {
+				el.addEventListener("click", () => {
 					let type: toolType = toolType[el.getAttribute("data-tool-name")];
 
 					this.setToolEvent(type);
@@ -85,7 +85,7 @@ export class Controller {
 			this.model.setMouseCoordinatesText(e.offsetX, e.offsetY);
 		});
 
-		this.canvas.addEventListener("mouseleave", (e: MouseEvent) => {
+		this.canvas.addEventListener("mouseleave", () => {
 			this.model.setMouseCoordinatesText(-1, -1);
 		});
 
@@ -110,19 +110,19 @@ export class Controller {
 			".canvas-wrap .bottom-right-resize-btn"
 		) as HTMLElement;
 
-		bottomResizeBtn.addEventListener("mousedown", (e: MouseEvent) => {
-			resizeCanvasFunc(e, "bottom");
+		bottomResizeBtn.addEventListener("mousedown", () => {
+			resizeCanvasFunc("bottom");
 		});
 
-		rightResizeBtn.addEventListener("mousedown", (e: MouseEvent) => {
-			resizeCanvasFunc(e, "right");
+		rightResizeBtn.addEventListener("mousedown", () => {
+			resizeCanvasFunc("right");
 		});
 
-		bottomRightResizeBtn.addEventListener("mousedown", (e: MouseEvent) => {
-			resizeCanvasFunc(e, "bottom-right");
+		bottomRightResizeBtn.addEventListener("mousedown", () => {
+			resizeCanvasFunc("bottom-right");
 		});
 
-		let resizeCanvasFunc = (e: MouseEvent, label: string) => {
+		let resizeCanvasFunc = (label: string) => {
 			this.view.setResizeCursor(label);
 
 			let setCanvasSizeFunc = (e: MouseEvent) => {
