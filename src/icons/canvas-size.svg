@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+	<path d="M15 0 H 40 V 25 H 15 Z" />
+	<path d="M 7,30 L 7,5" stroke="black" stroke-width="5" />
+	<path d="M 10,33 L 35,33" stroke="black" stroke-width="5" />
+	<polyline points="0,5 15,5 7,0" />
+	<polyline points="35,25 35,40 40,33" />
+</svg>

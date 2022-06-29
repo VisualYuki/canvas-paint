@@ -7,22 +7,122 @@
 		<title>Canvas paint</title>
 	</head>
 	<body>
-		<canvas id="canvas" height="800"></canvas>
+		<svg style="display: none">
+			<symbol id="resize-square">
+				<rect
+					width="6"
+					height="6"
+					fill="white"
+					stroke-width="1"
+					stroke="black"
+				/>
+			</symbol>
+		</svg>
 
-		<div class="panel d-flex align-items-center">
-			<button type="button" class="btn btn-primary  round-btn btn-blue"></button>
-			<button type="button" class="btn btn-success  round-btn btn-green"></button>
-			<button type="button" class="btn btn-danger  round-btn btn-red"></button>
-			<input type="color" class="color-input" />
-			<input
-				type="range"
-				name=""
-				class="input-range"
-				max="20"
-				min="1"
-				value="1"
-				id=""
-			/>
+		<div class="page-wrap">
+			<span class="top-panel">
+				<div class="block tools">
+					<img src="./src/icons/pencil.webp" data-tool-name="pencil" />
+					<img src="./src/icons/eraser.webp" data-tool-name="eraser" />
+					<img
+						src="./src/icons/color-picker.webp"
+						data-tool-name="colorPicker"
+					/>
+					<img src="./src/icons/text.webp" data-tool-name="text" />
+					<img
+						src="./src/icons/fill-color.webp"
+						data-tool-name="fillColor"
+					/>
+				</div>
+				<div class="block thickness active">
+					<img src="./src/icons/thickness.svg" />
+					<input
+						type="range"
+						class="thickness__range"
+						min="1"
+						max="4"
+						step="1"
+						value="1"
+					/>
+				</div>
+
+				<div class="block current-color">
+					<div class="current-color__color"></div>
+					<span>current <br />color</span>
+				</div>
+
+				<label class="block palette">
+					<img src="./src/icons/palette.svg" alt="" />
+					<span>choose <br />color</span>
+					<input type="color" class="palette__color-input" name="" id="" />
+				</label>
+
+				<div class="block file">
+					<p>Download</p>
+					<p>Upload</p>
+				</div>
+			</span>
+
+			<div class="main-content">
+				<div class="canvas-wrap">
+					<canvas
+						id="canvas"
+						class="canvas"
+						height="600"
+						width="600"
+					></canvas>
+					<div class="right-resize-btn resize-btn">
+						<svg width="6" height="6">
+							<use xlink:href="#resize-square"></use>
+						</svg>
+					</div>
+
+					<div class="bottom-resize-btn resize-btn">
+						<svg width="6" height="6">
+							<use xlink:href="#resize-square"></use>
+						</svg>
+					</div>
+
+					<div class="bottom-right-resize-btn resize-btn">
+						<svg width="6" height="6">
+							<use xlink:href="#resize-square"></use>
+						</svg>
+					</div>
+				</div>
+			</div>
+
+			<div class="bottom-panel">
+				<div class="block">
+					<img
+						src="./src/icons/coordinates.svg"
+						alt=""
+						style="width: 15px; margin-right: 10px"
+					/>
+					<div class="mouse-coordinates"></div>
+				</div>
+				<div class="block">
+					<img
+						src="./src/icons/canvas-size.svg"
+						alt=""
+						style="width: 15px; margin-right: 10px"
+					/>
+					<div class="canvas-size">
+						<span class="width">0</span>,
+						<span class="height">0</span>
+					</div>
+				</div>
+				<!--<div class="scale">
+					<div class="scale__text">100%</div>
+					<input
+						class="scale__input"
+						type="range"
+						min="25"
+						max="200"
+						step="25"
+						value="100"
+					/>
+				</div>-->
+			</div>
 		</div>
 
 		<script type="module" src="/src/main.ts"></script>

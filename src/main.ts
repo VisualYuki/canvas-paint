@@ -1,62 +1,31 @@
-import "./style.css";
+import "./style.scss";
 import "bootstrap/dist/css/bootstrap.css";
+import { Model } from "./mvc/model";
+import { Controller } from "./mvc/controller";
+import { View } from "./mvc/view";
 
-let canvas: HTMLCanvasElement = document.getElementById(
-	"canvas"
-) as HTMLCanvasElement;
+let view: View = new View();
+let model: Model = new Model(view);
+let controller: Controller = new Controller(model, view);
 
-let ctx: CanvasRenderingContext2D = canvas.getContext(
-	"2d"
-) as CanvasRenderingContext2D;
+//ctx.fillStyle = "black";
+//ctx.lineWidth = 1;
 
-ctx.fillStyle = "black";
-ctx.lineWidth = 1;
+//canvas.addEventListener("mousedown", () => {
+//	let isFirstPoint: boolean = true;
+//	ctx.beginPath();
 
-window.addEventListener("DOMContentLoaded", () => {
-	document
-		.getElementById("canvas")
-		?.setAttribute("width", document.documentElement.clientWidth.toString());
-});
+//	canvas.onmousemove = (event: MouseEvent) => {
+//		if (!isFirstPoint) {
+//			ctx.lineTo(event.offsetX, event.offsetY);
+//			ctx.stroke();
+//		} else {
+//			ctx.moveTo(event.offsetX, event.offsetY);
+//			isFirstPoint = false;
+//		}
+//	};
 
-document.querySelector(".btn-blue")?.addEventListener("click", () => {
-	ctx.strokeStyle = "blue";
-});
-
-document.querySelector(".btn-green")?.addEventListener("click", () => {
-	ctx.strokeStyle = "green";
-});
-
-document.querySelector(".btn-red")?.addEventListener("click", () => {
-	ctx.strokeStyle = "red";
-});
-
-document
-	.querySelector(".color-input")
-	?.addEventListener("input", (e: InputEvent) => {
-		ctx.strokeStyle = (e.target as HTMLInputElement).value;
-	});
-
-canvas.addEventListener("mousedown", () => {
-	let isFirstPoint: boolean = true;
-	ctx.beginPath();
-
-	canvas.onmousemove = (event: MouseEvent) => {
-		if (!isFirstPoint) {
-			ctx.lineTo(event.offsetX, event.offsetY);
-			ctx.stroke();
-		} else {
-			ctx.moveTo(event.offsetX, event.offsetY);
-			isFirstPoint = false;
-		}
-	};
-
-	canvas.onmouseup = () => {
-		canvas.onmousemove = null;
-	};
-});
-
-document
-	.querySelector(".input-range")
-	.addEventListener("input", (e: InputEvent) => {
-		ctx.lineWidth = +(e.target as HTMLInputElement).value;
-	});
+//	canvas.onmouseup = () => {
+//		canvas.onmousemove = null;
+//	};
+//});
