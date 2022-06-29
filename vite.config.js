@@ -1,5 +1,5 @@
 // vite.config.js
 export default {
 	// config options
-	base: "/canvas-paint/",
+	base: "/canvas-paint/dist/",
 };
