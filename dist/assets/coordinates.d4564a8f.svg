@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+	<line x1="50%" x2="50%" y1="5" y2="35" stroke="black" stroke-width="2" />
+	<polygon points="20,0 15,5 25,5" fill="black" stroke-width="1" stroke="black" />
+	<polygon points="25,35 15,35 20,40" fill="black" stroke-width="1" stroke="black" />
+	<line x1="5" x2="35" y1="50%" y2="50%" stroke="black" stroke-width="2" />
+	<polygon points="5,15 5,25 0,20" fill="black" stroke-width="1" stroke="black" />
+	<polygon points="35,15 35,25 40,20" fill="black" stroke-width="1" stroke="black" />
+</svg>

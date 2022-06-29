@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/canvas-paint/assets/favicon.63a26457.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Canvas paint</title>
+		<script type="module" crossorigin src="/canvas-paint/assets/index.63dbad1a.js"></script>
+		<link rel="stylesheet" href="/canvas-paint/assets/index.d3881cc9.css">
+	</head>
+	<body>
+		<svg style="display: none">
+			<symbol id="resize-square">
+				<rect
+					width="6"
+					height="6"
+					fill="white"
+					stroke-width="1"
+					stroke="black"
+				/>
+			</symbol>
+		</svg>
+
+		<div class="page-wrap">
+			<span class="top-panel">
+				<div class="block tools">
+					<img src="data:image/webp;base64,UklGRroBAABXRUJQVlA4WAoAAAAQAAAAEwAAEwAAQUxQSIsAAAABcFtt23M8f+ylOeIAjtISqVSzgWMUaqbJaq0q+/5bfD/HBBFBMEnTEHaLzEVSn5ZSj9w44940hSotyG7cW1aJ5pzgBqYeDhz7hqULGRwZeTgyxyLvgYNZSZFXTz/oKAl/ob+K1POT2l+6lvrbnWtZkb4bcsNB2/rSlOsNuopltQPvlw7byaCmSGYCAFZQOCAIAQAAUAYAnQEqFAAUAD6ROplIJaMioSgNULASCWwAnTKDN35qrIkJVH4lHi366Bu0+U3wjKTx22zcDYHAvoAA/stW1/l8D0bxefU65qouPRbHZTissuKGnEP0DNVdWFaMLvZNev5b03k0/OlQcAiMzW7gGxQmWCr1hu1OrjgHFhmwo0YxjoI3+UfsACDpvCvN3ptw6AYgmxrxEKXFfECO6E2Bn5+aExp/4fKTociP+yb1RCaacN4b2DaUyAQCHtWrV3D/OLcNOFHZlF61+nyGpyxicFJswnv9X95fMzn5407UlavuXgHvx50n9vZq0gtRWRYQ2PcoOwlnvcXqUJZBKqkHpn9L8skOAAAA" data-tool-name="pencil" />
+					<img src="data:image/webp;base64,UklGRkwBAABXRUJQVlA4WAoAAAAQAAAAEwAAEwAAQUxQSHwAAAABf2Cmbdvgkhbb/i0iYswD2cKhcBXbttNsei8SngSk4AAJSCAOEgeJk0hAAhL4Si+0e9EQ0f8WAGA/khIAU01HLPE2/qISMPX078/qNH1DeZqGqzqNkzr9u52u3hrdsyu5MTx0dvL+qRx6FV5fGes0/Fux5Dm5NgDWpRMBVlA4IKoAAAAwBgCdASoUABQAPpE+l0kloyIhKA1QsBIJbACsLz5sAa5n+oGWV7ySAw4rXK4FiD2l16WlIH2r7BbQAP6K2yKFHJ658pgIUBUaeeLAywZ99sa276AUwwx6xP/zv3z+PcUzbUXTH//lzS6Pz/0WMjB+cKXVFsdoAg/cHHUqA3OHcfUp/JS8O0Inkfnw+guxE70Lv+f1L2B0igUz7rLqoJw8pD+/3HtqBhAAAA==" data-tool-name="eraser" />
+					<img
+						src="data:image/webp;base64,UklGRgABAABXRUJQVlA4WAoAAAAQAAAAEwAAEwAAQUxQSLQAAAABgFtt2/Lk+e2czKBtTlp39zZZwqlgAlbIMtgiUEKXCfxuvv8NI0SEwrZtmzhKuucXMhW442x5yi6GgXzTfD0D33mr6CU0g8uZHwtJX5zhzMgguXviDlxYGBuVcXSGbMwijeDu1F4UxOhxPHCHt7k8g3NRB1hJvkVBpSPslLApnBlXkm5baDCQXAI1OTn0FQWe5Pgv5RiKq81e5dMDtOR1BwMb5e7w13qAp9yyEyqUbP/HRwtWUDggJgAAANACAJ0BKhQAFAA+kUSdSqWjoqGoCACwEglpAAA9o6AA/vjPGsAA"
+						data-tool-name="colorPicker"
+					/>
+					<img src="data:image/webp;base64,UklGRkwBAABXRUJQVlA4WAoAAAAQAAAAEwAAEwAAQUxQSAABAAABkGvb1rE9+33f50uXyk5qO3VSOldgq7RT2SrtdLZt26psn+c56/c1RMQEqHLQZswYr6DqM9X5gkcuKatB0AgMnG4qqst1hgjGGoVqcrWhsvO+trKqguZiAMYAhSoyheekSpETyqso1JMY2XiNBK2UVwrajiXaTcOMeQqSMjX4QeStuuKJVyVlUtAYzJgpnSZG+quQcl0gOvtWLr9FiuxSoUIdcHAAx/nfUnlJizE8/vv79390jKkqqdYb3KnWEw8k9SE67w4eO3r06NFfeKKHtBMzxqvKtZixQU2+k/jfXCHPS+pOcj7Xn0qMHFAhKZPukyITHpGMIQqSFDQHSzwEVlA4ICYAAADQAgCdASoUABQAPpFEnUqlo6KhqAgAsBIJaQAAPaOgAP74zxrAAA==" data-tool-name="text" />
+					<img
+						src="data:image/webp;base64,UklGRl4CAABXRUJQVlA4WAoAAAAQAAAAEwAAEwAAQUxQSPkAAAABkGNb27E958Vv2/8E/uqvEbuyVXEAdjr3Zmt1ZpV0aW3bj67g+b4xRMQEEE8zdp+7tIiyPKdgCpuWw6EBgCSS0bjr4+Hjhy88PXpsMdGU9qcq8mAk44R+BmOs99YaLQRSeo2C5PW/120gY5KcpBCRfgA5MyOFA5AxQl5SiAS9BxJqXitIPmJ0CiBni4wz1jnnjNT/X8J5FelmAUkJfdK9GXNnzZw5Y+b0brIkA2ZIWymcAa2TV9yRbq2d3gklWZ5Cw77vkkKQ9G1fLSnAXclZL3nrpOtEJeOCJAX3W+/LSICxj1Xk85Fk/F+15PT9byF8u396SRUp/wMAVlA4ID4BAABQBgCdASoUABQAPpE8mEiloyIhKA1QsBIJbAC25YBMqu8qkRDupfJADy0eyoUbr6gGErDZ+wyv/h/yAAD+6/+zvWWYTcL0MgjbDWp+OGYtdfsk/YAw0wH59klWft/yn6i9O3tutwhTSdjp/lb2jwzTjDiMwQ0n3Nd+9kFZepfLVDY4fpiKEHOIzMRcKU8nv5DPf6BbofodHpfWMokJNof/UEEzNL7oADx5WJVvYMPnPj9LpLovm/2Moz1Cn1R561ezV8toHDX0Orb8QAh+0y68uKGxYFQPQ9R4D936YVENOyTDtYsvRpjbIn+OGU916plT5EyDT/9pVAk9/EMGFqih7/tMmTFLq5L2RFRFq7Bm+tzwtcG3+dortP/WhuzEqwJdHEeEAefZ3H/Ny/wK28wnlSX5xLHPbvH7Z4KBIAA="
+						data-tool-name="fillColor"
+					/>
+				</div>
+				<div class="block thickness active">
+					<img src="/canvas-paint/assets/thickness.ee65133a.svg" />
+					<input
+						type="range"
+						class="thickness__range"
+						min="1"
+						max="4"
+						step="1"
+						value="1"
+					/>
+				</div>
+
+				<div class="block current-color">
+					<div class="current-color__color"></div>
+					<span>current <br />color</span>
+				</div>
+
+				<label class="block palette">
+					<img src="/canvas-paint/assets/palette.29ef08a7.svg" alt="" />
+					<span>choose <br />color</span>
+					<input type="color" class="palette__color-input" name="" id="" />
+				</label>
+
+				<div class="block file">
+					<p>Download</p>
+					<p>Upload</p>
+				</div>
+			</span>
+
+			<div class="main-content">
+				<div class="canvas-wrap">
+					<canvas
+						id="canvas"
+						class="canvas"
+						height="600"
+						width="600"
+					></canvas>
+					<div class="right-resize-btn resize-btn">
+						<svg width="6" height="6">
+							<use xlink:href="#resize-square"></use>
+						</svg>
+					</div>
+
+					<div class="bottom-resize-btn resize-btn">
+						<svg width="6" height="6">
+							<use xlink:href="#resize-square"></use>
+						</svg>
+					</div>
+
+					<div class="bottom-right-resize-btn resize-btn">
+						<svg width="6" height="6">
+							<use xlink:href="#resize-square"></use>
+						</svg>
+					</div>
+				</div>
+			</div>
+
+			<div class="bottom-panel">
+				<div class="block">
+					<img
+						src="/canvas-paint/assets/coordinates.d4564a8f.svg"
+						alt=""
+						style="width: 15px; margin-right: 10px"
+					/>
+					<div class="mouse-coordinates"></div>
+				</div>
+				<div class="block">
+					<img
+						src="/canvas-paint/assets/canvas-size.df8bd1c0.svg"
+						alt=""
+						style="width: 15px; margin-right: 10px"
+					/>
+					<div class="canvas-size">
+						<span class="width">0</span>,
+						<span class="height">0</span>
+					</div>
+				</div>
+				<!--<div class="scale">
+					<div class="scale__text">100%</div>
+					<input
+						class="scale__input"
+						type="range"
+						min="25"
+						max="200"
+						step="25"
+						value="100"
+					/>
+				</div>-->
+			</div>
+		</div>
+
+		
+	</body>
+</html>
