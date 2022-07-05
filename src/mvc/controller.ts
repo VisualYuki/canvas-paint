@@ -55,6 +55,18 @@ export class Controller {
 				this.model.setColor(target.value);
 			});
 
+		document
+			.querySelector(".top-panel .file .download")
+			.addEventListener("click", () => {
+				this.model.downloadImage();
+			});
+
+		document
+			.querySelector(".top-panel .file .upload input")
+			.addEventListener("change", (e: InputEvent) => {
+				this.model.uploadImage((e.target as HTMLInputElement).files[0]);
+			});
+
 		this.model.setColor("#000000");
 	}
 

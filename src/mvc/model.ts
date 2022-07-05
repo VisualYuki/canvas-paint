@@ -16,6 +16,14 @@ export class Model {
 		this.view = view;
 	}
 
+	public downloadImage() {
+		this.view.downloadImage();
+	}
+
+	public uploadImage(file: File) {
+		this.view.uploadImage(file);
+	}
+
 	writeLine(x: number, y: number, isFirstPoint: boolean) {
 		this.view.writeLine(x, y, isFirstPoint);
 	}

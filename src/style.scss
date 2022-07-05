@@ -116,7 +116,8 @@ p {
 		flex-direction: column;
 		align-items: center;
 
-		p {
+		p,
+		label {
 			color: blue;
 			text-decoration: underline 1px blue;
 			margin-bottom: 10px;

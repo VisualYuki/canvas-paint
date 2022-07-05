@@ -3,6 +3,8 @@ export class View {
 		"canvas"
 	) as HTMLCanvasElement;
 	ctx: CanvasRenderingContext2D;
+	canvasSettings: { lineWidth?: number; fillStyle?: string } = {};
+	canvasSettingsValues: string[] = ["lineWidth", "fillStyle", "strokeStyle"];
 
 	constructor() {
 		let canvas: HTMLCanvasElement = document.getElementById(
@@ -10,7 +12,39 @@ export class View {
 		) as HTMLCanvasElement;
 
 		this.ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-		this.ctx.strokeStyle = "red";
+	}
+
+	public downloadImage() {
+		let anchor: HTMLAnchorElement = document.createElement("a");
+		document.body.appendChild(anchor);
+		anchor.href = this.canvasNode.toDataURL();
+		anchor.download = "canvs image.png";
+		anchor.click();
+		document.body.removeChild(anchor);
+	}
+
+	public uploadImage(file: File) {
+		let url = URL.createObjectURL(file);
+
+		let img: HTMLImageElement = new Image();
+
+		img.src = url;
+
+		img.onload = () => {
+			this.ctx.drawImage(img, 0, 0);
+		};
+	}
+
+	private saveCanvasSettings() {
+		for (let value of this.canvasSettingsValues) {
+			this.canvasSettings[value] = this.ctx[value];
+		}
+	}
+
+	private restoreCanvasSettings() {
+		for (let value of this.canvasSettingsValues) {
+			this.ctx[value] = this.canvasSettings[value];
+		}
 	}
 
 	public writeLine(x: number, y: number, isFirstPoint: boolean) {
@@ -23,12 +57,19 @@ export class View {
 	}
 
 	public drawStartFakeCanvas(): string {
-		console.log(this.ctx.strokeStyle);
-		this.ctx.save();
-
+		this.saveCanvasSettings();
 		let imgData: string = this.canvasNode.toDataURL("image/png");
-
 		return imgData;
+	}
+
+	public drawEndFakeCanvas(imgData: string) {
+		var img: HTMLImageElement = document.createElement("img");
+		img.src = imgData;
+
+		img.onload = () => {
+			this.ctx.drawImage(img, 0, 0);
+		};
+		this.restoreCanvasSettings();
 	}
 
 	setPencilColor(color: string) {
@@ -71,19 +112,6 @@ export class View {
 		this.ctx.beginPath();
 
 		this.ctx.lineWidth = pencilThickness;
-	}
-
-	public drawEndFakeCanvas(imgData: string) {
-		var img: HTMLImageElement = document.createElement("img");
-		img.src = imgData;
-
-		img.onload = () => {
-			this.ctx.drawImage(img, 0, 0);
-		};
-
-		this.ctx.restore();
-
-		console.log(this.ctx.strokeStyle);
 	}
 
 	public setCanvasWidth(width: number) {
