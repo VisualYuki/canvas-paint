@@ -1,23 +1,12 @@
+import { canvas } from "./canvas";
+
 export class View {
-	canvasNode: HTMLCanvasElement = document.getElementById(
-		"canvas"
-	) as HTMLCanvasElement;
-	ctx: CanvasRenderingContext2D;
-	canvasSettings: { lineWidth?: number; fillStyle?: string } = {};
-	canvasSettingsValues: string[] = ["lineWidth", "fillStyle", "strokeStyle"];
-
-	constructor() {
-		let canvas: HTMLCanvasElement = document.getElementById(
-			"canvas"
-		) as HTMLCanvasElement;
-
-		this.ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-	}
+	constructor() {}
 
 	public downloadImage() {
 		let anchor: HTMLAnchorElement = document.createElement("a");
 		document.body.appendChild(anchor);
-		anchor.href = this.canvasNode.toDataURL();
+		anchor.href = canvas.canvasNode.toDataURL();
 		anchor.download = "canvs image.png";
 		anchor.click();
 		document.body.removeChild(anchor);
@@ -25,56 +14,26 @@ export class View {
 
 	public uploadImage(file: File) {
 		let url = URL.createObjectURL(file);
-
 		let img: HTMLImageElement = new Image();
-
 		img.src = url;
-
 		img.onload = () => {
-			this.ctx.drawImage(img, 0, 0);
+			canvas.ctx.drawImage(img, 0, 0);
 		};
 	}
 
-	private saveCanvasSettings() {
-		for (let value of this.canvasSettingsValues) {
-			this.canvasSettings[value] = this.ctx[value];
-		}
-	}
-
-	private restoreCanvasSettings() {
-		for (let value of this.canvasSettingsValues) {
-			this.ctx[value] = this.canvasSettings[value];
-		}
-	}
-
-	public writeLine(x: number, y: number, isFirstPoint: boolean) {
-		if (!isFirstPoint) {
-			this.ctx.lineTo(x, y);
-			this.ctx.stroke();
-		} else {
-			this.ctx.moveTo(x, y);
-		}
-	}
-
 	public drawStartFakeCanvas(): string {
-		this.saveCanvasSettings();
-		let imgData: string = this.canvasNode.toDataURL("image/png");
+		canvas.saveCanvasSettings();
+		let imgData: string = canvas.canvasNode.toDataURL("image/png");
 		return imgData;
 	}
 
 	public drawEndFakeCanvas(imgData: string) {
 		var img: HTMLImageElement = document.createElement("img");
 		img.src = imgData;
-
 		img.onload = () => {
-			this.ctx.drawImage(img, 0, 0);
+			canvas.ctx.drawImage(img, 0, 0);
 		};
-		this.restoreCanvasSettings();
-	}
-
-	setPencilColor(color: string) {
-		this.ctx.beginPath();
-		this.ctx.strokeStyle = color;
+		canvas.restoreCanvasSettings();
 	}
 
 	setInputColor(color: string) {
@@ -91,39 +50,16 @@ export class View {
 			.setAttribute("style", `background: ${color}`);
 	}
 
-	public setPencilThickness(thickness: number) {
-		let pencilThickness: number;
-
-		switch (thickness) {
-			case 1:
-				pencilThickness = 1;
-				break;
-			case 2:
-				pencilThickness = 3;
-				break;
-			case 3:
-				pencilThickness = 5;
-				break;
-			case 4:
-				pencilThickness = 10;
-				break;
-		}
-
-		this.ctx.beginPath();
-
-		this.ctx.lineWidth = pencilThickness;
-	}
-
 	public setCanvasWidth(width: number) {
 		let imgData: string = this.drawStartFakeCanvas();
 
-		this.canvasNode.setAttribute("width", width.toString());
+		canvas.canvasNode.setAttribute("width", width.toString());
 		this.drawEndFakeCanvas(imgData);
 	}
 
 	public setCanvasHeight(height: number) {
 		let imgData: string = this.drawStartFakeCanvas();
-		this.canvasNode.setAttribute("height", height.toString());
+		canvas.canvasNode.setAttribute("height", height.toString());
 		this.drawEndFakeCanvas(imgData);
 	}
 

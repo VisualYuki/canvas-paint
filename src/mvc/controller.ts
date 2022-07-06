@@ -12,8 +12,10 @@ enum toolType {
 export class Controller {
 	model: Model;
 	view: View;
-	lastEvent: toolType;
-	canvas: HTMLElement = document.getElementById("canvas");
+	lastToolType: toolType;
+	canvas: HTMLCanvasElement = document.getElementById(
+		"canvas"
+	) as HTMLCanvasElement;
 	mainContent: HTMLElement = document.querySelector(".main-content");
 	canvasWrap: HTMLElement = document.querySelector(".canvas-wrap");
 
@@ -26,32 +28,34 @@ export class Controller {
 	}
 
 	private initTopPanelEvents() {
-		this.setToolEvent(toolType.pencil);
+		this.setToolType(toolType.pencil);
+
 		document
-			.querySelectorAll(".top-panel  .tools img")
+			.querySelectorAll(".top-panel .tools img[data-tool-name]")
 			.forEach((el: HTMLElement) => {
 				el.addEventListener("click", () => {
 					let type: toolType = toolType[el.getAttribute("data-tool-name")];
-
-					this.setToolEvent(type);
+					this.setToolType(type);
 				});
 			});
 
 		document
 			.querySelector(".top-panel .thickness__range")
 			.addEventListener("change", (e: InputEvent) => {
-				//console.log(e.target.value);
 				const target = e.target as HTMLInputElement;
-
 				this.model.setThickness(target.value);
+			});
+
+		document
+			.querySelector(".top-panel .tools .clear")
+			.addEventListener("click", () => {
+				this.model.clearCanvas();
 			});
 
 		document
 			.querySelector(".top-panel .palette__color-input")
 			.addEventListener("change", (e: InputEvent) => {
-				//console.log(e.target.value);
 				const target = e.target as HTMLInputElement;
-
 				this.model.setColor(target.value);
 			});
 
@@ -70,7 +74,11 @@ export class Controller {
 		this.model.setColor("#000000");
 	}
 
-	private setToolEvent(type: toolType) {
+	private setToolType(type: toolType) {
+		this.removeLastToolType();
+
+		this.lastToolType = type;
+
 		if (type === toolType.pencil) {
 			document.documentElement.classList.add("pencil-cursor");
 			document
@@ -88,7 +96,29 @@ export class Controller {
 					this.canvas.onmousemove = null;
 				};
 			};
-		} else if (type === toolType.eraser) {
+		} else if (type === toolType.colorPicker) {
+			document
+				.querySelector(".top-panel img[data-tool-name='colorPicker']")
+				.classList.add("active");
+
+			this.canvas.onmousedown = (e: MouseEvent) => {
+				this.model.getPixelColor(e.offsetX, e.offsetY);
+			};
+		}
+	}
+
+	private removeLastToolType() {
+		document
+			.querySelectorAll(".top-panel img")
+			.forEach((item: HTMLElement) => {
+				item.classList.remove("active");
+			});
+
+		this.canvas.onmousedown = null;
+
+		if (this.lastToolType === toolType.pencil) {
+			document.documentElement.classList.remove("pencil-cursor");
+		} else if (this.lastToolType === toolType.colorPicker) {
 		}
 	}
 

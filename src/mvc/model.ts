@@ -1,19 +1,23 @@
 import { View } from "./view";
+import { canvas } from "./canvas";
 
 export class Model {
-	//ctx: CanvasRenderingContext2D;
 	view: View;
 	canvasWidth: number;
 	canvasHeight: number;
-	//thickness: number = 1;
 
 	constructor(view: View) {
-		//let canvas: HTMLCanvasElement = document.getElementById(
-		//	"canvas"
-		//) as HTMLCanvasElement;
-
-		//this.ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
 		this.view = view;
+	}
+
+	public clearCanvas() {
+		canvas.clearCanvas(this.canvasWidth, this.canvasHeight);
+	}
+
+	public getPixelColor(offsetX: number, offsetY: number) {
+		let pixelColor = canvas.getPixelColor(offsetX, offsetY);
+
+		this.setColor(pixelColor);
 	}
 
 	public downloadImage() {
@@ -24,38 +28,33 @@ export class Model {
 		this.view.uploadImage(file);
 	}
 
-	writeLine(x: number, y: number, isFirstPoint: boolean) {
-		this.view.writeLine(x, y, isFirstPoint);
+	public writeLine(x: number, y: number, isFirstPoint: boolean) {
+		canvas.writeLine(x, y, isFirstPoint);
 	}
 
-	setColor(color: string) {
-		this.view.setPencilColor(color);
+	public setColor(color: string) {
+		canvas.setPencilColor(color);
 		this.view.updateCurrentColor(color);
 		this.view.setInputColor(color);
 	}
 
-	setThickness(thickness: string) {
-		//this.thickness = +thickness;
-		this.view.setPencilThickness(+thickness);
-
-		//this.ctx.lineWidth = width;
+	public setThickness(thickness: string) {
+		canvas.setPencilThickness(+thickness);
 	}
 
-	//setPencilThickness()
-
-	setCanvasWidth(width: number) {
+	public setCanvasWidth(width: number) {
 		this.canvasWidth = width;
 		this.view.setCanvasWidth(this.canvasWidth);
 		this.view.setCanvasWidthText(this.canvasWidth);
 	}
 
-	setCanvasHeight(height: number) {
+	public setCanvasHeight(height: number) {
 		this.canvasHeight = height;
 		this.view.setCanvasHeight(this.canvasHeight);
 		this.view.setCanvasHeightText(this.canvasHeight);
 	}
 
-	setMouseCoordinatesText(x: number, y: number) {
+	public setMouseCoordinatesText(x: number, y: number) {
 		this.view.setMouseCoordinatesText(x, y);
 	}
 }
